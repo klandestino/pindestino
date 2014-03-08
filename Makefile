@@ -17,12 +17,12 @@ pindestino.img: raspbian.img
 	mount -o loop,offset=4194304 pindestino.img work
 	echo "pindestino aint nothin to fuk wit" >work/pindestino.txt
 	sync
-	umount work
+	umount -l work
 	mount -o loop,offset=62914560 -t ext4 pindestino.img work
 	echo "" >work/etc/ld.so.preload
 	echo 'KERNEL=="sda", SYMLINK+="mmcblk0"' >work/etc/udev/rules.d/90-qemu.rules
 	echo 'KERNEL=="sda?", SYMLINK+="mmcblk0p%n"' >>work/etc/udev/rules.d/90-qemu.rules
 	echo 'KERNEL=="sda2", SYMLINK+="root"' >>work/etc/udev/rules.d/90-qemu.rules
 	sync
-	umount work
+	umount -l work
 	rmdir work
