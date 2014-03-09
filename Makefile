@@ -23,7 +23,13 @@ pindestino.img: raspbian.img
 	echo 'KERNEL=="sda", SYMLINK+="mmcblk0"' >work/etc/udev/rules.d/90-qemu.rules
 	echo 'KERNEL=="sda?", SYMLINK+="mmcblk0p%n"' >>work/etc/udev/rules.d/90-qemu.rules
 	echo 'KERNEL=="sda2", SYMLINK+="root"' >>work/etc/udev/rules.d/90-qemu.rules
+	
+	# disable raspi-config.sh at (first) boot:
 	rm work/etc/profile.d/raspi-config.sh
+	sed -i work/etc/inittab \
+		-e "s/^#\(.*\)#\s*RPICFG_TO_ENABLE\s*/\1/" \
+		-e "/#\s*RPICFG_TO_DISABLE/d"
+	
 	sync
 	umount -l work
 	rmdir work
