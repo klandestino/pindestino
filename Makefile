@@ -21,6 +21,8 @@ pindestino.img: raspbian.img kernel-qemu
 	echo "pindestino aint nothin to fuk wit" >work/pindestino.txt
 	sync
 	umount -l work
+	
+	# some stuff to make raspbian work nicer in qemu:
 	mount -o loop,offset=62914560 -t ext4 pindestino.img work
 	echo "" >work/etc/ld.so.preload
 	echo 'KERNEL=="sda", SYMLINK+="mmcblk0"' >work/etc/udev/rules.d/90-qemu.rules
@@ -37,10 +39,6 @@ pindestino.img: raspbian.img kernel-qemu
 		-e "/ttyAMA0/d"
 	echo "T0:23:respawn:/bin/login -f pi ttyAMA0 </dev/ttyAMA0 >/dev/ttyAMA0 2>&1" >>work/etc/inittab
 	
-	# Our custom rc.local to start X:
-	# cp rc.local work/etc/rc.local
-	# chmod a+x work/etc/rc.local
-
 	# add our install script to .bashrc.
 	# since we are auto logging in on serial interface,
 	# it will run at boot.
@@ -56,7 +54,11 @@ pindestino.img: raspbian.img kernel-qemu
 	# remove install script:
 	cp work/home/pi/.bashrc-backup work/home/pi/.bashrc
 	rm work/home/pi/.bashrc-backup
-
+	
+	# Our custom rc.local to start X:
+	cp rc.local work/etc/rc.local
+	chmod a+x work/etc/rc.local
+	
 	sync
 	umount -l work
 	rmdir work
