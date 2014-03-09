@@ -23,6 +23,7 @@ pindestino.img: raspbian.img
 	echo 'KERNEL=="sda", SYMLINK+="mmcblk0"' >work/etc/udev/rules.d/90-qemu.rules
 	echo 'KERNEL=="sda?", SYMLINK+="mmcblk0p%n"' >>work/etc/udev/rules.d/90-qemu.rules
 	echo 'KERNEL=="sda2", SYMLINK+="root"' >>work/etc/udev/rules.d/90-qemu.rules
+	rm work/etc/profile.d/raspi-config.sh
 	sync
 	umount -l work
 	rmdir work
