@@ -3,6 +3,9 @@ all: testroot pindestino.img
 testroot:
 	@if [ "$$(whoami)" != "root" ]; then echo "Must be root. Run with sudo."; exit 1; fi
 
+kernel-qemu:
+	wget http://xecdesign.com/downloads/linux-qemu/kernel-qemu
+
 raspbian.zip:
 	wget http://downloads.raspberrypi.org/raspbian_latest -O raspbian.zip
 
@@ -11,7 +14,7 @@ raspbian.img: raspbian.zip
 	mv ????-??-??-wheezy-raspbian.img raspbian.img
 	touch raspbian.img
 
-pindestino.img: raspbian.img
+pindestino.img: raspbian.img kernel-qemu
 	cp raspbian.img pindestino.img
 	mkdir -p work
 	mount -o loop,offset=4194304 pindestino.img work
