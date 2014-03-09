@@ -66,3 +66,5 @@ pindestino.img: raspbian.img kernel-qemu
 	sync
 	umount -l work
 	rmdir work
+	
+	chmod 644 pindestino.img
