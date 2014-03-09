@@ -26,9 +26,13 @@ pindestino.img: raspbian.img
 	
 	# disable raspi-config.sh at (first) boot:
 	rm work/etc/profile.d/raspi-config.sh
+	
+	# auto login on serial interface:
 	sed -i work/etc/inittab \
 		-e "s/^#\(.*\)#\s*RPICFG_TO_ENABLE\s*/\1/" \
-		-e "/#\s*RPICFG_TO_DISABLE/d"
+		-e "/#\s*RPICFG_TO_DISABLE/d" \
+		-e "/ttyAMA0/d"
+	echo "T0:23:respawn:/bin/login -f pi ttyAMA0 </dev/ttyAMA0 >/dev/ttyAMA0 2>&1" >>work/etc/inittab
 	
 	sync
 	umount -l work
