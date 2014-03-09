@@ -48,7 +48,7 @@ pindestino.img: raspbian.img kernel-qemu
 	sync
 	umount -l work
 	rmdir work
-	qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -hda pindestino.img
+	qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -hda pindestino.img -nographic
 	mkdir -p work
 	mount -o loop,offset=62914560 -t ext4 pindestino.img work
 	# remove install script:
@@ -58,6 +58,10 @@ pindestino.img: raspbian.img kernel-qemu
 	# Our custom rc.local to start X:
 	cp rc.local work/etc/rc.local
 	chmod a+x work/etc/rc.local
+	
+	# script for starting chromium when X starts:
+	cp xinitrc work/home/pi/.xinitrc
+	chmod a+x work/home/pi/.xinitrc
 	
 	sync
 	umount -l work
