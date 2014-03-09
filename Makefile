@@ -34,6 +34,26 @@ pindestino.img: raspbian.img
 		-e "/ttyAMA0/d"
 	echo "T0:23:respawn:/bin/login -f pi ttyAMA0 </dev/ttyAMA0 >/dev/ttyAMA0 2>&1" >>work/etc/inittab
 	
+	# Our custom rc.local to start X:
+	# cp rc.local work/etc/rc.local
+	# chmod a+x work/etc/rc.local
+
+	# add our install script to .bashrc.
+	# since we are auto logging in on serial interface,
+	# it will run at boot.
+	cp work/home/pi/.bashrc work/home/pi/.bashrc-backup
+	cat bashrc-install.sh >>work/home/pi/.bashrc
+	# start virtual machine to run install script:
+	sync
+	umount -l work
+	rmdir work
+	qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -hda pindestino.img
+	mkdir -p work
+	mount -o loop,offset=62914560 -t ext4 pindestino.img work
+	# remove install script:
+	cp work/home/pi/.bashrc-backup work/home/pi/.bashrc
+	rm work/home/pi/.bashrc-backup
+
 	sync
 	umount -l work
 	rmdir work
