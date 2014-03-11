@@ -63,6 +63,9 @@ pindestino.img: raspbian.img kernel-qemu
 	cp xinitrc work/home/pi/.xinitrc
 	chmod a+x work/home/pi/.xinitrc
 	
+	# fstab:
+	cp fstab work/etc/fstab
+
 	sync
 	umount -l work
 	rmdir work
