@@ -11,7 +11,7 @@ Features:
 Build image
 -----------
 
-	make must run as root, since the build will loopback mount the image:
+make must run as root, since the build will loopback mount the image:
 
 	# sudo make
 
