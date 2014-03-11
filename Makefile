@@ -63,9 +63,11 @@ pindestino.img: raspbian.img kernel-qemu
 	cp xinitrc work/home/pi/.xinitrc
 	chmod a+x work/home/pi/.xinitrc
 	
-	# use 4.2.2.1 for dns
+	# use 4.2.2.1 for dns. remove old dhcp leases. make dhcp leases writeable.
 	echo "nameserver 4.2.2.1" >work/etc/resolv.conf
 	cp dhclient.conf work/etc/dhcp/dhclient.conf
+	rm -Rf work/var/lib/dhcp
+	ln -s /tmp work/var/lib/dhcp
 	
 	# make pi home dir tar file and symlink home dir to tmp:
 	cd work/home; tar cjvaf pi.tar.bz2 pi; rm -Rf pi; ln -s /tmp pi
