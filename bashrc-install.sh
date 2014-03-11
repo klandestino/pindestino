@@ -11,5 +11,10 @@ sudo update-rc.d -f dphys-swapfile remove
 sudo apt-get purge -y dphys-swapfile
 sudo rm /var/swap
 
+# can not clean fs at boot, since we are read only:
+sudo update-rc.d -f checkroot-bootclean.sh remove
+# clean now instead:
+sudo rm -Rf /tmp/* /tmp/.*
+
 sudo sync
 sudo reboot

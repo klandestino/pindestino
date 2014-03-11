@@ -1,2 +1,4 @@
 #!/bin/bash
+cd /home
+tar xjf pi.tar.bz2
 su - pi -c 'startx' &

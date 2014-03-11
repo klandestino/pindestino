@@ -55,7 +55,7 @@ pindestino.img: raspbian.img kernel-qemu
 	cp work/home/pi/.bashrc-backup work/home/pi/.bashrc
 	rm work/home/pi/.bashrc-backup
 	
-	# Our custom rc.local to start X:
+	# Our custom rc.local to extract home dir and start X:
 	cp rc.local work/etc/rc.local
 	chmod a+x work/etc/rc.local
 	
@@ -63,11 +63,14 @@ pindestino.img: raspbian.img kernel-qemu
 	cp xinitrc work/home/pi/.xinitrc
 	chmod a+x work/home/pi/.xinitrc
 	
+	# make pi home dir tar file and symlink home dir to tmp:
+	cd work/home; tar cjvaf pi.tar.bz2 pi; rm -Rf pi; ln -s /tmp pi
+	
 	# fstab:
 	cp fstab work/etc/fstab
-
+	
 	sync
 	umount -l work
 	rmdir work
 	
-	chmod 644 pindestino.img
+	chmod 444 pindestino.img
