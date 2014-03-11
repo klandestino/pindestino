@@ -65,7 +65,7 @@ pindestino.img: raspbian.img kernel-qemu
 	
 	# use 4.2.2.1 for dns
 	echo "nameserver 4.2.2.1" >work/etc/resolv.conf
-	cp dhclient.conf etc/dhcp/dhclient.conf
+	cp dhclient.conf work/etc/dhcp/dhclient.conf
 	
 	# make pi home dir tar file and symlink home dir to tmp:
 	cd work/home; tar cjvaf pi.tar.bz2 pi; rm -Rf pi; ln -s /tmp pi
