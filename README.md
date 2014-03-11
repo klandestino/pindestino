@@ -6,6 +6,14 @@ Pindestino is a linux distribution/image for Raspberry Pi, built on top of Raspb
 Features:
 * Web Kiosk style. Will start Chromium in fullscreen at boot up.
 * Mounts the SD card as read-only, so it can be unplugged without a proper shutdown.
+ 
+
+Build image
+-----------
+
+	make must run as root, since the build will loopback mount the image:
+
+	# sudo make
 
 
 Booting image in qemu
