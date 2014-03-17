@@ -72,6 +72,9 @@ pindestino.img: raspbian.img kernel-qemu
 	# make pi home dir tar file and symlink home dir to tmp:
 	cd work/home; tar cjvaf pi.tar.bz2 pi; rm -Rf pi; ln -s /tmp pi
 	
+	# usbmount config to mount readonly
+	cp usbmount.conf work/etc/usbmount/usbmount.conf
+	
 	# fstab:
 	cp fstab work/etc/fstab
 	

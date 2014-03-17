@@ -16,5 +16,14 @@ sudo update-rc.d -f checkroot-bootclean.sh remove
 # clean now instead:
 sudo rm -Rf /tmp/* /tmp/.*
 
+# auto mount usb drives:
+sudo apt-get install -y usbmount
+
+# adding nodejs
+curl http://nodejs.org/dist/v0.10.21/node-v0.10.21-linux-arm-pi.tar.gz | tar xvzf -
+sudo mkdir /opt/nodejs
+sudo mv node-v0.10.21-linux-arm-pi/* /opt/nodejs
+rm -Rf node-v0.10.21-linux-arm-pi
+
 sudo sync
 sudo reboot
