@@ -1,3 +1,5 @@
+include config.mk
+
 all: testroot pindestino.img
 
 testroot:
@@ -16,70 +18,47 @@ raspbian.img: raspbian.zip
 
 pindestino.img: raspbian.img kernel-qemu
 	cp raspbian.img pindestino.img
+	
+	# mount filesystems:
+	mkdir -p workboot
 	mkdir -p work
-	mount -o loop,offset=4194304 pindestino.img work
-	echo "pindestino aint nothin to fuk wit" >work/pindestino.txt
-	sync
-	umount -l work
-	
-	# some stuff to make raspbian work nicer in qemu:
+	mount -o loop,offset=4194304 pindestino.img workboot
 	mount -o loop,offset=62914560 -t ext4 pindestino.img work
-	echo "" >work/etc/ld.so.preload
-	echo 'KERNEL=="sda", SYMLINK+="mmcblk0"' >work/etc/udev/rules.d/90-qemu.rules
-	echo 'KERNEL=="sda?", SYMLINK+="mmcblk0p%n"' >>work/etc/udev/rules.d/90-qemu.rules
-	echo 'KERNEL=="sda2", SYMLINK+="root"' >>work/etc/udev/rules.d/90-qemu.rules
 	
-	# disable raspi-config.sh at (first) boot:
-	rm work/etc/profile.d/raspi-config.sh
-	
-	# auto login on serial interface:
-	sed -i work/etc/inittab \
-		-e "s/^#\(.*\)#\s*RPICFG_TO_ENABLE\s*/\1/" \
-		-e "/#\s*RPICFG_TO_DISABLE/d" \
-		-e "/ttyAMA0/d"
-	echo "T0:23:respawn:/bin/login -f pi ttyAMA0 </dev/ttyAMA0 >/dev/ttyAMA0 2>&1" >>work/etc/inittab
-	
+	# run pre-install scripts
+	for F in ${FEATURES}; do . features/$$F/pre-install.sh; done
+		
 	# add our install script to .bashrc.
 	# since we are auto logging in on serial interface,
 	# it will run at boot.
 	cp work/home/pi/.bashrc work/home/pi/.bashrc-backup
-	cat bashrc-install.sh >>work/home/pi/.bashrc
+	echo "#!/bin/bash" >work/home/pi/.bashrc
+	chmod a+x work/home/pi/.bashrc
+	for F in ${FEATURES}; do cat features/$$F/install.sh >>work/home/pi/.bashrc; done
+	
 	# start virtual machine to run install script:
 	sync
+	umount -l workboot
 	umount -l work
+	rmdir workboot
 	rmdir work
 	qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -append "root=/dev/sda2 panic=1 rootfstype=ext4 rw" -hda pindestino.img -nographic
+	mkdir -p workboot
 	mkdir -p work
+	mount -o loop,offset=4194304 pindestino.img workboot
 	mount -o loop,offset=62914560 -t ext4 pindestino.img work
+	
 	# remove install script:
 	cp work/home/pi/.bashrc-backup work/home/pi/.bashrc
 	rm work/home/pi/.bashrc-backup
 	
-	# Our custom rc.local to extract home dir and start X:
-	cp rc.local work/etc/rc.local
-	chmod a+x work/etc/rc.local
+	# run post-install scripts
+	for F in ${FEATURES}; do . features/$$F/post-install.sh; done
 	
-	# script for starting chromium when X starts:
-	cp xinitrc work/home/pi/.xinitrc
-	chmod a+x work/home/pi/.xinitrc
-	
-	# use 4.2.2.1 for dns. remove old dhcp leases. make dhcp leases writeable.
-	echo "nameserver 4.2.2.1" >work/etc/resolv.conf
-	cp dhclient.conf work/etc/dhcp/dhclient.conf
-	rm -Rf work/var/lib/dhcp
-	ln -s /tmp work/var/lib/dhcp
-	
-	# make pi home dir tar file and symlink home dir to tmp:
-	cd work/home; tar cjvaf pi.tar.bz2 pi; rm -Rf pi; ln -s /tmp pi
-	
-	# usbmount config to mount readonly
-	cp usbmount.conf work/etc/usbmount/usbmount.conf
-	
-	# fstab:
-	cp fstab work/etc/fstab
-	
+	# finish
 	sync
+	umount -l workboot
 	umount -l work
+	rmdir workboot
 	rmdir work
-	
 	chmod 444 pindestino.img
