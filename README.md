@@ -30,6 +30,8 @@ Booting image in qemu
 Write image to SD card
 ----------------------
 
+Something like: (Make sure /dev/mmcblk0 is the correct device!)
+
 	# sudo dd bs=4M if=pindestino.img of=/dev/mmcblk0
 	# sudo sync
 
