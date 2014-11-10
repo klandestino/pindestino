@@ -1,0 +1,13 @@
+#
+# Create default interfaces if there is none...
+#
+if [ ! -e /etc/rw/interfaces ]; then
+	echo 'auto lo' >/etc/rw/interfaces
+	echo 'iface lo inet loopback' >>/etc/rw/interfaces
+	echo '' >>/etc/rw/interfaces
+	echo 'allow-hotplug wlan0' >>/etc/rw/interfaces
+	echo 'auto wlan0' >>/etc/rw/interfaces
+	echo 'iface wlan0 inet dhcp' >>/etc/rw/interfaces
+	echo '	wpa-ssid "KLANDESTINO"' >>/etc/rw/interfaces
+	echo '	wpa-psk "bagarmossen"' >>/etc/rw/interfaces
+fi
