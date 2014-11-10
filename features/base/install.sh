@@ -4,7 +4,7 @@
 sudo apt-get update
 
 # for the graphical environment:
-sudo apt-get install -y matchbox iceweasel x11-xserver-utils ttf-mscorefonts-installer xwit
+sudo apt-get install -y matchbox iceweasel x11-xserver-utils xwit
 
 # remove disk swap:
 sudo swapoff --all
@@ -29,9 +29,9 @@ sudo mv node-v0.10.21-linux-arm-pi/* /opt/nodejs
 rm -Rf node-v0.10.21-linux-arm-pi
 
 # install js scripts:
-sudo chown -R pi /opt/js
-cd /opt/js
-NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" npm install
+#sudo chown -R pi /opt/js
+#cd /opt/js
+#NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" npm install
 
 sudo sync
 sudo reboot
