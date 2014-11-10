@@ -28,10 +28,5 @@ sudo mkdir /opt/nodejs
 sudo mv node-v0.10.21-linux-arm-pi/* /opt/nodejs
 rm -Rf node-v0.10.21-linux-arm-pi
 
-# install js scripts:
-#sudo chown -R pi /opt/js
-#cd /opt/js
-#NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" npm install
-
 sudo sync
 sudo reboot
