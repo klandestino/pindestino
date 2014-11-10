@@ -3,10 +3,16 @@ pindestino
 
 Pindestino is a linux distribution/image for Raspberry Pi, built on top of Raspbian.
 
-Features:
-* Web Kiosk style. Will start Chromium in fullscreen at boot up.
-* Mounts the SD card as read-only, so it can be unplugged without a proper shutdown.
+At boot, Pindestino will:
+
+1. Start any Node.js application that is on your USB device.
+2. Start Iceweasel in fullscreen, kiosk mode style.
+3. Direct Iceweasel to http://127.0.0.1/ (that is your Node.js app).
  
+More features:
+* Pindestino mounts your SD card and your USB as read-only, so the Raspberry can be unplugged without a proper shutdown.
+* If you put a Iceweasel/Firefox extension (.xpi file) on your USB device, it will be installed before Iceweasel starts.
+
 
 Build image
 -----------
