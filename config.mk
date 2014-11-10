@@ -1,1 +1,1 @@
-FEATURES := base
+FEATURES := base iceweasel-plugins
