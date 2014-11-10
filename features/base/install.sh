@@ -1,7 +1,10 @@
 # this script runs as user pi, but we do have sudo access.
 
+# update packages
+sudo apt-get update
+
 # for the graphical environment:
-sudo apt-get install -y matchbox chromium x11-xserver-utils ttf-mscorefonts-installer xwit sqlite3 libnss3
+sudo apt-get install -y matchbox iceweasel x11-xserver-utils ttf-mscorefonts-installer xwit
 
 # remove disk swap:
 sudo swapoff --all
@@ -24,6 +27,11 @@ curl http://nodejs.org/dist/v0.10.21/node-v0.10.21-linux-arm-pi.tar.gz | tar xvz
 sudo mkdir /opt/nodejs
 sudo mv node-v0.10.21-linux-arm-pi/* /opt/nodejs
 rm -Rf node-v0.10.21-linux-arm-pi
+
+# install js scripts:
+sudo chown -R pi /opt/js
+cd /opt/js
+NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" npm install
 
 sudo sync
 sudo reboot

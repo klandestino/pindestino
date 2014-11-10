@@ -15,15 +15,26 @@ rm -Rf work/var/lib/dhcp
 ln -s /tmp work/var/lib/dhcp
 
 # make pi home dir tar file and symlink home dir to tmp:
-pushd work/home
+cd work/home
 tar cjvaf pi.tar.bz2 pi
 rm -Rf pi
 ln -s /tmp pi
-popd
+cd ../..
 
 # usbmount config to mount readonly
 cp usbmount.conf work/etc/usbmount/usbmount.conf
 
 # fstab:
 cp fstab work/etc/fstab
+
+# rw config:
+mkdir -p work/etc/rw
+
+# network config in rw:
+rm work/etc/network/interfaces
+ln -s /etc/rw/interfaces work/etc/network/interfaces
+cp default-networking work/etc/default/networking
+
+# config.txt
+cp config.txt workboot/config.txt
 

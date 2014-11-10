@@ -20,3 +20,6 @@ sed -i work/etc/inittab \
 	-e "/ttyAMA0/d"
 echo "T0:23:respawn:/bin/login -f pi ttyAMA0 </dev/ttyAMA0 >/dev/ttyAMA0 2>&1" >>work/etc/inittab
 
+# copy site:
+cp -R js work/opt/
+
