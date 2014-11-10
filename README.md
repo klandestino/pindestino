@@ -11,7 +11,6 @@ At boot, Pindestino will:
  
 More features:
 * Pindestino mounts your SD card and your USB as read-only, so the Raspberry can be unplugged without a proper shutdown.
-* If you put a Iceweasel/Firefox extension (.xpi file) on your USB device, it will be installed before Iceweasel starts.
 
 
 Build image
@@ -33,3 +32,14 @@ Write image to SD card
 
 	# sudo dd bs=4M if=pindestino.img of=/dev/mmcblk0
 	# sudo sync
+
+
+Prepare your USB drive
+----------------------
+
+At boot, Pindestino will search for a USB device with the file app/package.json. It will then change directory (cd) into the app directory, and execute npm start.
+
+Any node js application depenencies must be in the app/node_modules directory. NOTE: Binary modules must be of the Raspberry Pi architecture.
+
+Your node.js application must listen at port 80. Otherwise, X11 and Iceweasel will not start.
+
