@@ -1,4 +1,13 @@
 #!/bin/bash
+cd /opt/js
+NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" PORT="80" npm start &
+
 cd /home
 tar xjf pi.tar.bz2
+
+while [ "$(netstat -lnp | grep node | grep 80 | grep LISTEN)" = "" ]; do
+	echo "Waiting for 0.0.0.0:80 listener to start..."
+	sleep 2;
+done
+
 su - pi -c 'startx' &
