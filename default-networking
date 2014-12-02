@@ -5,6 +5,10 @@ if [ ! -e /etc/rw/interfaces ]; then
 	echo 'auto lo' >/etc/rw/interfaces
 	echo 'iface lo inet loopback' >>/etc/rw/interfaces
 	echo '' >>/etc/rw/interfaces
+	echo 'allow-hotplug eth0' >>/etc/rw/interfaces
+	echo 'auto eth0' >>/etc/rw/interfaces
+	echo 'iface eth0 inet dhcp' >>/etc/rw/interfaces
+	echo '' >>/etc/rw/interfaces
 	echo 'allow-hotplug wlan0' >>/etc/rw/interfaces
 	echo 'auto wlan0' >>/etc/rw/interfaces
 	echo 'iface wlan0 inet dhcp' >>/etc/rw/interfaces
