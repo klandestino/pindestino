@@ -72,3 +72,19 @@ To run a bootscript (before "npm start"). Note that it is relative to the USB's 
 	bootscript: ./autostart.sh
 
 
+How to build your binary npm dependencies using Pindestino
+----------------------------------------------------------
+
+Your app directory on your USB need all npm dependencies installed before booting. Binary dependencies must be compiled for the Raspberry Pi architecture. This is how you could do that:
+
+1. Put your node app on the USB and define all your dependencies in package.json.
+2. Add "usb: rw" in your app/pindestino.conf to make the USB writable.
+3. Add "bootscript: ./install.sh" to your app/pindestino.conf, to run that bash script before Pindestino runs "npm start".
+4. Create a app/install.sh file on your USB, and paste this into it: HOME="$(pwd)" NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" npm install
+5. Now boot Pindestino with this USB stick. It will install your dependencies and compile your binary dependencien to the Raspberry Pi architecture.
+6. Now your dependencies are on the USB. You can now remove "usb: rw" and "bootscript: ./install.sh" from your app/pindestino.conf and delete the app/install.sh file.
+7. Viola!
+
+Also note: Some modules require symlinks to work on your USB. The FAT file system does not support symlinks, so you might have to format your USB to some linux filesystem, for example ext3.
+
+
