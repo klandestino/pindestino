@@ -5,12 +5,15 @@ tar xjf pi.tar.bz2
 
 APP_DIR=""
 while [ "$APP_DIR" = "" ]; do
-	echo "Waiting for USB media with app/package.json file..."
+	echo "Waiting for USB media with app/package.json and app/pindestino.conf files..."
 	for D in $(ls /media); do
 		if [ -d "/media/$D" ]; then
 			if [ -d "/media/$D/app" ]; then
-				if [ -e "/media/$D/app/package.json" ]; then
-					APP_DIR="/media/$D/app"
+				if [ -e "/media/$D/app/pindestino.conf" ]; then
+					if [ -e "/media/$D/app/package.json" ]; then
+						APP_DIR="/media/$D/app"
+						MOUNT_DIR="/media/$D"
+					fi
 				fi
 			fi
 		fi
@@ -20,6 +23,17 @@ done
 
 echo "Starting node js app (npm start)..."
 cd "$APP_DIR"
+
+if [ "$(cat pindestino.conf | grep -E "usb:\s+rw")" != "" ]; then
+	DEVICE="$(mount -v | grep "$MOUNT_DIR" | awk '{print $1}')"
+	mount -o remount,rw $DEVICE $MOUNT_DIR
+fi
+
+if [ "$(cat pindestino.conf | grep "^bootscript:")" ]; then
+	SCRIPT="$(cat pindestino.conf | grep "^bootscript:" | sed -r 's/^bootscript://' | xargs )"
+	bash $SCRIPT
+fi
+
 NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" PORT="80" npm start &
 
 while [ "$(netstat -lnp | grep node | grep 80 | grep LISTEN)" = "" ]; do

@@ -6,6 +6,9 @@ sudo apt-get update
 # for the graphical environment:
 sudo apt-get install -y matchbox iceweasel x11-xserver-utils xwit
 
+# locales...
+sudo apt-get install -y locales-all
+
 # remove disk swap:
 sudo swapoff --all
 sudo dphys-swapfile swapoff

@@ -39,9 +39,36 @@ Something like: (Make sure /dev/mmcblk0 is the correct device!)
 Prepare your USB drive
 ----------------------
 
-At boot, Pindestino will search for a USB device with the file app/package.json. It will then change directory (cd) into the app directory, and execute npm start.
+At boot, Pindestino will search for a USB device with the files app/package.json and app/pindestino.conf. Both those files must exist. It will then change directory (cd) into the app directory, and execute npm start.
 
 Any node js application depenencies must be in the app/node_modules directory. NOTE: Binary modules must be of the Raspberry Pi architecture.
 
 Your node.js application must listen at port 80. Otherwise, X11 and Iceweasel will not start.
+
+
+app/pindestino.conf
+-------------------
+
+The app/pindestino.conf should be on your USB stick, and it will set some configuration for your pindestino. It should be in YAML format. Example:
+
+	wifi:
+		network: MYWIFI
+		password: secret
+	usb: rw
+	bootscript: ./autostart.sh
+
+To set Wifi network name and password:
+
+	wifi:
+		network: MYWIFI
+		passwork: secret
+
+To mount your USB in read-write mode:
+
+	usb: rw
+
+To run a bootscript (before "npm start"). Note that it is relative to the USB's app directory. 
+
+	bootscript: ./autostart.sh
+
 
