@@ -26,6 +26,12 @@ while true; do
 	# Start the window manager (remove "-use_cursor no" if you actually want mouse interaction)
 	matchbox-window-manager -use_titlebar no &
 
+	# Set keyboard layout from configuration.
+	KEYBOARDLAYOUT="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['kbmap']")"
+	if [ "$KEYBOARDLAYOUT" != "" ]; then
+		setxkbmap "$KEYBOARDLAYOUT"
+	fi
+	
 	# Start the browser (See http://peter.sh/experiments/chromium-command-line-switches/)
 	iceweasel http://127.0.0.1/
 
