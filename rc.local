@@ -35,6 +35,18 @@ if [ "$(cat pindestino.conf | grep "^bootscript:")" ]; then
 	bash $SCRIPT
 fi
 
+if [ "$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['wifi']")" != "" ]; then
+	NETWORK="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['wifi']['network']")"
+	PASSWORD="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['wifi']['password']")"
+	echo "" >>/etc/network/interfaces
+	echo "allow-hotplug wlan0" >>/etc/network/interfaces
+	echo "auto wlan0" >>/etc/network/interfaces
+	echo "iface wlan0 inet dhcp" >>/etc/network/interfaces
+	echo "	wpa-ssid \"$NETWORK\"" >>/etc/network/interfaces
+	echo "	wpa-psk \"$PASSWORD\"" >>/etc/network/interfaces
+	/sbin/ifup wlan0
+fi
+
 echo "Starting node js app (npm start)"
 NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" PORT="80" npm start &
 
