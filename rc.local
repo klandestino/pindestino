@@ -44,8 +44,13 @@ if [ "$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); put
 	echo "iface wlan0 inet dhcp" >>/etc/network/interfaces
 	echo "	wpa-ssid \"$NETWORK\"" >>/etc/network/interfaces
 	echo "	wpa-psk \"$PASSWORD\"" >>/etc/network/interfaces
-	/sbin/ifup wlan0
+else
+	echo "" >>/etc/network/interfaces
+	echo "allow-hotplug eth0" >>/etc/network/interfaces
+	echo "auto eth0" >>/etc/network/interfaces
+	echo "iface eth0 inet dhcp" >>/etc/network/interfaces
 fi
+/etc/init.d/networking restart
 
 echo "Starting node js app (npm start)"
 NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" PORT="80" npm start &
