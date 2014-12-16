@@ -21,6 +21,10 @@ while [ "$APP_DIR" = "" ]; do
 	sleep 2;
 done
 
+# Access app dir from /tmp/app (independent of usbX...)
+# (/tmp/app is used by xinitrc)
+ln -s $APP_DIR /tmp/app
+
 cd "$APP_DIR"
 
 if [ "$(cat pindestino.conf | grep -E "usb:\s+rw")" != "" ]; then
@@ -34,6 +38,14 @@ if [ "$(cat pindestino.conf | grep "^bootscript:")" ]; then
 	echo "Running bootscript $SCRIPT"
 	bash $SCRIPT
 fi
+
+TIMEZONE="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['timezone']")"
+if [ "$TIMEZONE" = "" ]; then
+	TIMEZONE="Etc/UTC"
+fi
+export TZ="$TIMEZONE"
+cp /usr/share/zoneinfo/${TIMEZONE} /etc/rw/localtime
+echo "$TIMEZONE" > /etc/rw/timezone
 
 if [ "$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['wifi']")" != "" ]; then
 	NETWORK="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['wifi']['network']")"

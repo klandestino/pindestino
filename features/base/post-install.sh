@@ -35,6 +35,12 @@ rm work/etc/network/interfaces
 ln -s /etc/rw/interfaces work/etc/network/interfaces
 cp default-networking work/etc/default/networking
 
+# timezone in rw:
+rm work/etc/localtime
+rm work/etc/timezone
+ln -s /etc/rw/localtime work/etc/localtime
+ln -s /etc/rw/timezone work/etc/timezone
+
 # config.txt
 cp config.txt workboot/config.txt
 

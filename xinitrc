@@ -27,7 +27,7 @@ while true; do
 	matchbox-window-manager -use_titlebar no &
 
 	# Set keyboard layout from configuration.
-	KEYBOARDLAYOUT="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['kbmap']")"
+	KEYBOARDLAYOUT="$(cat /tmp/app/pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['kbmap']")"
 	if [ "$KEYBOARDLAYOUT" != "" ]; then
 		setxkbmap "$KEYBOARDLAYOUT"
 	fi
