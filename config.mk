@@ -1,1 +1,1 @@
-FEATURES := base iceweasel-plugins quiet
+FEATURES := base hostname quiet

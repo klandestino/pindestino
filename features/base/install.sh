@@ -31,5 +31,3 @@ sudo mkdir /opt/nodejs
 sudo mv node-v0.10.21-linux-arm-pi/* /opt/nodejs
 rm -Rf node-v0.10.21-linux-arm-pi
 
-sudo sync
-sudo reboot

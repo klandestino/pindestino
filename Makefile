@@ -35,6 +35,9 @@ pindestino.img: raspbian.img kernel-qemu
 	echo "#!/bin/bash" >work/home/pi/.bashrc
 	chmod a+x work/home/pi/.bashrc
 	for F in ${FEATURES}; do cat features/$$F/install.sh >>work/home/pi/.bashrc; done
+	echo '' >>work/home/pi/.bashrc
+	echo 'sudo sync' >>work/home/pi/.bashrc
+	echo 'sudo reboot' >>work/home/pi/.bashrc
 	
 	# start virtual machine to run install script:
 	sync

@@ -44,3 +44,6 @@ ln -s /etc/rw/timezone work/etc/timezone
 # config.txt
 cp config.txt workboot/config.txt
 
+# xpis
+mkdir work/etc/xpi
+cp *.xpi work/etc/xpi/

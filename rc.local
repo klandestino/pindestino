@@ -72,4 +72,21 @@ while [ "$(netstat -lnp | grep node | grep 80 | grep LISTEN)" = "" ]; do
 	sleep 2;
 done
 
+mkdir /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
+cp /etc/xpi/*.xpi /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
+if [ -d $APP_DIR/xpi ]; then
+	cp -f /etc/xpi/*.xpi /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
+fi
+cd /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
+	for F in $(ls *.xpi); do
+		mkdir tmp
+		cd tmp
+		unzip ../$F
+		ID="$(cat install.rdf | grep em:id | head -1 | sed 's/^[^>]*>//' | sed 's/<.*$//')"
+		cd ..
+		mv tmp "$ID"
+		rm $F
+	done
+cd /
+
 su - pi -c 'startx' &
