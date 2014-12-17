@@ -1,1 +1,1 @@
-FEATURES := base iceweasel-plugins
+FEATURES := base iceweasel-plugins quiet
