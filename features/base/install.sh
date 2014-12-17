@@ -31,3 +31,21 @@ sudo mkdir /opt/nodejs
 sudo mv node-v0.10.21-linux-arm-pi/* /opt/nodejs
 rm -Rf node-v0.10.21-linux-arm-pi
 
+# dont start daemons at boot.
+sudo /etc/init.d/ssh stop
+sudo update-rc.d ssh disable
+
+sudo /etc/init.d/triggerhappy stop
+sudo update-rc.d triggerhappy disable
+
+sudo /etc/init.d/nfs-common stop
+sudo update-rc.d nfs-common disable
+
+sudo /etc/init.d/rpcbind stop
+sudo update-rc.d rpcbind disable
+
+sudo /etc/init.d/rsync stop
+sudo update-rc.d rsync disable
+
+
+

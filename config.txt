@@ -38,6 +38,7 @@ hdmi_drive=2
 #sdtv_mode=2
 
 #uncomment to overclock the arm. 700 MHz is the default.
-#arm_freq=800
+arm_freq=800
+core_freq=300
 
 # for more options see http://elinux.org/RPi_config.txt

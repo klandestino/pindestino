@@ -7,6 +7,7 @@ while true; do
 	sleep 2;
 	killall -9 iceweasel 2>/dev/null;
 	killall -9 matchbox-window-manager 2>/dev/null;
+	killall fbi # the boot splash screen
 
 	# Clean out existing profile information
 	rm -rf /home/pi/.cache;
