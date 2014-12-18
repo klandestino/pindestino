@@ -97,7 +97,7 @@ if [ "$NODEAPP" != "false" ]; then
 
 fi
 
-sudo killall fbi # kill the boot splash screen
+killall -KILL fbi # kill the boot splash screen
 reset
 
 BROWSER="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['browser']")"
