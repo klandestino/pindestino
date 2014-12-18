@@ -37,7 +37,10 @@ hdmi_drive=2
 # uncomment for composite PAL
 #sdtv_mode=2
 
-#uncomment to overclock the arm. 700 MHz is the default.
+# dynamic memory split between ARM and GPU:
+coherent_pool=6M  smsc95xx.turbo_mode=N
+
+# modest overclock of the arm.
 arm_freq=800
 core_freq=300
 

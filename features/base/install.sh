@@ -47,5 +47,10 @@ sudo update-rc.d rpcbind disable
 sudo /etc/init.d/rsync stop
 sudo update-rc.d rsync disable
 
+# disable ipv6 to save resources
+echo "net.ipv6.conf.all.disable_ipv6=1" > /etc/sysctl.d/disableipv6.conf
+echo 'blacklist ipv6' >> /etc/modprobe.d/blacklist
+sed -i '/::/s%^%#%g' /etc/hosts
+
 
 
