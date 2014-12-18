@@ -120,6 +120,10 @@ Because Raspberry Pi is a slow computer.
 
 Yes, a very slight overclocking.
 
+### Is it built on top of soft-float or hard-float Raspbian?
+
+Hard-float.
+
 ### How do I change the resolution?
 
 We hardcoded 720p into Pindestino. In the future, we would like the resolution to be configurable in the USB stick's app/pindestino.conf. However, you can change it, editing the config.txt on the SD card. See any Raspbian tutorial for more info.
