@@ -82,7 +82,7 @@ cd /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
 		mv tmp "$ID"
 		rm $F
 	done
-cd /
+cd "$APP_DIR"
 
 NODEAPP="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['nodeapp']")"
 if [ "$NODEAPP" != "false" ]; then
