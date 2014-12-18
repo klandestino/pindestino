@@ -16,7 +16,7 @@ cat <<_EOF_ >work/etc/init.d/asplashscreen
 
 do_start () {
 
-    /usr/bin/fbi -T 1 -noverbose -t 1 -a /etc/splash0.png /etc/splash1.png /etc/splash2.png /etc/splash3.png    
+    /usr/bin/fbi -T 1 -noverbose -t 1 -a /etc/splash0.png /etc/splash1.png /etc/splash2.png /etc/splash3.png >/dev/null 2>&1
     exit 0
 }
 

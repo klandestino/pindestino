@@ -7,8 +7,6 @@ while true; do
 	sleep 2;
 	killall -9 iceweasel 2>/dev/null;
 	killall -9 matchbox-window-manager 2>/dev/null;
-	sudo killall fbi # the boot splash screen
-	chvt 7 # killing fbi will switch vt. switch back to x11.
 
 	# Clean out existing profile information
 	rm -rf /home/pi/.cache;

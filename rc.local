@@ -89,4 +89,5 @@ cd /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
 	done
 cd /
 
+sudo killall fbi # kill the boot splash screen
 su - pi -c 'startx' &
