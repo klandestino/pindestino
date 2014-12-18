@@ -116,6 +116,10 @@ Remove the "wifi" section from your app/pindestino.conf on the USB stick, and re
 
 Because Raspberry Pi is a slow computer.
 
+### How long does it take to start up Pindestino?
+
+Depends a bit on your site, SD card performance, and more, but about 2 minutes and 30 seconds is probably normal duration from power on until the web app loaded in Iceweasel.
+
 ### Are you overclocking?
 
 Yes, a very slight overclocking.
