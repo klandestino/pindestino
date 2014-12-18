@@ -64,18 +64,13 @@ else
 fi
 /etc/init.d/networking restart
 
-echo "Starting node js app (npm start)"
-NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" PORT="80" npm start &
-
-while [ "$(netstat -lnp | grep node | grep 80 | grep LISTEN)" = "" ]; do
-	echo "Waiting for 0.0.0.0:80 listener to start..."
-	sleep 2;
-done
-
 mkdir /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}
-cp /etc/xpi/*.xpi /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
+KIOSK="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['kiosk']")"
+if [ "$KIOSK" != "false" ]; then
+	cp /etc/xpi/*.xpi /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
+fi
 if [ -d $APP_DIR/xpi ]; then
-	cp -f /etc/xpi/*.xpi /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
+	cp -f $APP_DIR/xpi/*.xpi /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
 fi
 cd /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
 	for F in $(ls *.xpi); do
@@ -89,5 +84,24 @@ cd /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
 	done
 cd /
 
+NODEAPP="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['nodeapp']")"
+if [ "$NODEAPP" != "false" ]; then
+
+	echo "Starting node js app (npm start)"
+	NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" PORT="80" npm start &
+
+	while [ "$(netstat -lnp | grep node | grep 80 | grep LISTEN)" = "" ]; do
+		echo "Waiting for 0.0.0.0:80 listener to start..."
+		sleep 2;
+	done
+
+fi
+
 sudo killall fbi # kill the boot splash screen
-su - pi -c 'startx' &
+reset
+
+BROWSER="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['browser']")"
+if [ "$BROWSER" != "false" ]; then
+	su - pi -c 'startx' &
+fi
+
