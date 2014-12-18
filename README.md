@@ -106,13 +106,13 @@ Username is "pi". Password is "raspberry".
 
 Because Raspberry Pi is a slow computer.
 
-### I want some other resolution than 720p.
+### How do I change the resolution?
 
-We hardcoded 720p into Pindestino. In the future, we would like that to be configurable in the USB stick's app/pindestino.conf. However, you can change it, editing the config.txt on the SD card. See any Raspbian tutorial for more info.
+We hardcoded 720p into Pindestino. In the future, we would like the resolution to be configurable in the USB stick's app/pindestino.conf. However, you can change it, editing the config.txt on the SD card. See any Raspbian tutorial for more info.
 
 
 TODO for future releases
 -------------------------
 
 * Screen resolution should be configurable in the USB stick's app/pindestino.conf.
-
+* Tor support (anonymous internet access).
