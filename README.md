@@ -52,15 +52,9 @@ You can put Firefox/Iceweasel extensions on your USB stick, and those will be in
 app/pindestino.conf
 -------------------
 
-The app/pindestino.conf should be on your USB stick, and it will set some configuration for your pindestino. It should be in YAML format. Example:
+The app/pindestino.conf should be on your USB stick, and it will set some configuration for your pindestino. It should be in YAML format. It could also be completely empty, however the file must exist.
 
-	wifi:
-		network: MYWIFI
-		password: secret
-	usb: rw
-	bootscript: ./autostart.sh
-
-To set Wifi network name and password:
+To enable Wifi and set network name and password:
 
 	wifi:
 		network: MYWIFI
@@ -73,6 +67,18 @@ To mount your USB stick in read-write mode:
 To run a bootscript (before "npm start"). Note that it is relative to the USB stick's app directory. 
 
 	bootscript: ./autostart.sh
+
+To disable kiosk mode (full screen browser):
+
+	kiosk: false
+
+Don't start the browser (nor X11) at boot:
+
+	browser: false
+
+Don't start the node.js app at boot - just a browser:
+
+	nodeapp: false
 
 
 How to build your binary npm dependencies using Pindestino
@@ -102,17 +108,28 @@ Press ctrl+alt+f2 for tty2, where that stuff is.
 
 Username is "pi". Password is "raspberry".
 
+### How do I get cable ethernet connection?
+
+Remove the "wifi" section from your app/pindestino.conf on the USB stick, and reboot. Then Pindestino will try to DHCP over the cable (eth0).
+
 ### Why is everything so slow?
 
 Because Raspberry Pi is a slow computer.
 
+### Are you overclocking?
+
+Yes, a very slight overclocking.
+
 ### How do I change the resolution?
 
 We hardcoded 720p into Pindestino. In the future, we would like the resolution to be configurable in the USB stick's app/pindestino.conf. However, you can change it, editing the config.txt on the SD card. See any Raspbian tutorial for more info.
-
 
 TODO for future releases
 -------------------------
 
 * Screen resolution should be configurable in the USB stick's app/pindestino.conf.
 * Tor support (anonymous internet access).
+* More networking config (like static IPs, routing yada yada, etc).
+* Start a default node.js server with documentation if no USB stick is found within XX seconds.
+* Support for open/non-wpa2 wifi networks.
+
