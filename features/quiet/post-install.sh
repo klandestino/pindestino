@@ -7,3 +7,5 @@ cp splash3.png work/etc/splash3.png
 
 echo 'logo.nologo dwc_otg.lpm_enable=0 console=tty2 quiet root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait' >workboot/cmdline.txt
 
+sed -i 's/1:.* tty1//' boot/etc/inittab
+
