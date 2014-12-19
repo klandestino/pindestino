@@ -1,1 +1,0 @@
-FEATURES := base hostname quiet

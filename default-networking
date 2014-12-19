@@ -1,7 +1,0 @@
-#
-# Create default interfaces if there is none...
-#
-if [ ! -e /etc/rw/interfaces ]; then
-	echo 'auto lo' >/etc/rw/interfaces
-	echo 'iface lo inet loopback' >>/etc/rw/interfaces
-fi
