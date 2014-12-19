@@ -22,6 +22,17 @@ The SD card image is ~3 gigabytes.
 * [Torrent download](https://github.com/klandestino/pindestino/raw/master/releases/pindestino_version_1.img.torrent).
 
 
+Write image to SD card
+----------------------
+
+Check any Raspberry Pi tutorial for your OS.
+
+In the Linux world, we do something like this: (Make sure /dev/mmcblk0 is the correct device!)
+
+	# sudo dd bs=4M if=pindestino.img of=/dev/mmcblk0
+	# sudo sync
+
+
 Build image
 -----------
 
@@ -34,15 +45,6 @@ Booting image in qemu
 ---------------------
 
 	# qemu-system-arm -kernel kernel-qemu -cpu arm1176 -m 256 -M versatilepb -no-reboot -serial stdio -append "root=/dev/sda2 rootfstype=ext4 ro" -drive file=pindestino.img,index=1,readonly,media=disk
-
-
-Write image to SD card
-----------------------
-
-Something like: (Make sure /dev/mmcblk0 is the correct device!)
-
-	# sudo dd bs=4M if=pindestino.img of=/dev/mmcblk0
-	# sudo sync
 
 
 Prepare your USB stick
