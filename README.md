@@ -14,6 +14,12 @@ More features:
 * Put Iceweasel/Firefox extensions on your USB stick, and those will be auto installed before Iceweasel starts.
 
 
+Download image file
+--------------------
+
+* [Torrent download](https://github.com/klandestino/pindestino/raw/master/releases/pindestino_version_1.img.torrent)
+
+
 Build image
 -----------
 
