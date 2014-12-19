@@ -6,7 +6,7 @@ Pindestino is a linux distribution/image for Raspberry Pi, built on top of Raspb
 At boot, Pindestino will:
 
 1. Start any Node.js application that is on your USB stick.
-2. Start Iceweasel in fullscreen, kiosk mode style.
+2. Start Iceweasel (basically identical to Firefox) in fullscreen, kiosk mode style.
 3. Direct Iceweasel to http://127.0.0.1/ (that is your Node.js app).
  
 More features:
@@ -141,6 +141,11 @@ Hard-float.
 ### How do I change the resolution?
 
 We hardcoded 720p into Pindestino. In the future, we would like the resolution to be configurable in the USB stick's app/pindestino.conf. However, you can change it, editing the config.txt on the SD card. See any Raspbian tutorial for more info.
+
+### What is the license?
+
+* GPLv3 for the buildscripts.
+* The R-Kiosk Iceweasel/Firefox extension has it's own license.
 
 TODO for future releases
 -------------------------
