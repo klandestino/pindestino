@@ -17,7 +17,9 @@ More features:
 Download image file
 --------------------
 
-* [Torrent download](https://github.com/klandestino/pindestino/raw/master/releases/pindestino_version_1.img.torrent)
+The SD card image is ~3 gigabytes.
+
+* [Torrent download](https://github.com/klandestino/pindestino/raw/master/releases/pindestino_version_1.img.torrent).
 
 
 Build image
