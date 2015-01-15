@@ -98,11 +98,13 @@ Your app directory on your USB stick need all npm dependencies installed before 
 
 1. Put your node app on the USB stick and define all your dependencies in package.json.
 2. Add "usb: rw" in your app/pindestino.conf to make the USB stick writable.
-3. Add "bootscript: ./install.sh" to your app/pindestino.conf, to run that bash script before Pindestino runs "npm start".
-4. Create a app/install.sh file on your USB stick, and paste this into it: rm -Rf node_modules; HOME="$(pwd)" NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" npm install
-5. Now boot Pindestino with this USB stick. It will install your dependencies and compile your binary dependencien to the Raspberry Pi architecture.
+3. Create a app/install.sh file on your USB stick, and paste this into it: echo -e "auto lo eth0\niface lo inet loopback\n\niface eth0 inet dhcp" >/etc/network/interfaces; /etc/init.d/networking restart; rm -Rf node_modules; HOME="$(pwd)" NODE_JS_HOME="/opt/nodejs" PATH="$PATH:$NODE_JS_HOME/bin" npm install
+4. Add "bootscript: ./install.sh" to your app/pindestino.conf, to run that bash script before Pindestino runs "npm start".
+5. 5. Now boot Pindestino with this USB stick. It will install your dependencies and compile your binary dependencien to the Raspberry Pi architecture.
 6. Now your dependencies are on the USB stick. You can now remove "usb: rw" and "bootscript: ./install.sh" from your app/pindestino.conf and delete the app/install.sh file.
 7. Viola!
+
+Note: Since the bootscript script will run before your network config is parsed from pindestino.conf, the script must configure it's own network to have internet access. In the above example, we are using dhcp on eth0...
 
 Also note: Some modules require symlinks to work on your USB stick. The FAT file system does not support symlinks, so you might have to format your USB stick to some linux filesystem, for example ext3.
 
