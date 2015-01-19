@@ -33,12 +33,6 @@ if [ "$(cat pindestino.conf | grep -E "usb:\s+rw")" != "" ]; then
 	mount -o remount,rw $DEVICE $MOUNT_DIR
 fi
 
-if [ "$(cat pindestino.conf | grep "^bootscript:")" ]; then
-	SCRIPT="$(cat pindestino.conf | grep "^bootscript:" | sed -r 's/^bootscript://' | xargs )"
-	echo "Running bootscript $SCRIPT"
-	bash $SCRIPT
-fi
-
 TIMEZONE="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['timezone']")"
 if [ "$TIMEZONE" = "" ]; then
 	TIMEZONE="Etc/UTC"
@@ -83,6 +77,12 @@ cd /usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/
 		rm $F
 	done
 cd "$APP_DIR"
+
+if [ "$(cat pindestino.conf | grep "^bootscript:")" ]; then
+	SCRIPT="$(cat pindestino.conf | grep "^bootscript:" | sed -r 's/^bootscript://' | xargs )"
+	echo "Running bootscript $SCRIPT"
+	bash $SCRIPT
+fi
 
 NODEAPP="$(cat pindestino.conf | ruby -ryaml -e "data = YAML::load(STDIN.read); puts data['nodeapp']")"
 if [ "$NODEAPP" != "false" ]; then
