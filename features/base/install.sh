@@ -25,6 +25,9 @@ sudo rm -Rf /tmp/* /tmp/.*
 # auto mount usb drives:
 sudo apt-get install -y usbmount
 
+# hfs+ support (mac os filesystem)
+sudo apt-get install hfsplus hfsutils hfsprogs
+
 # adding nodejs
 curl http://nodejs.org/dist/v0.10.21/node-v0.10.21-linux-arm-pi.tar.gz | tar xvzf -
 sudo mkdir /opt/nodejs
