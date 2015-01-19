@@ -26,7 +26,7 @@ sudo rm -Rf /tmp/* /tmp/.*
 sudo apt-get install -y usbmount
 
 # hfs+ support (mac os filesystem)
-sudo apt-get install hfsplus hfsutils hfsprogs
+sudo apt-get install -y hfsplus hfsutils hfsprogs
 
 # adding nodejs
 curl http://nodejs.org/dist/v0.10.21/node-v0.10.21-linux-arm-pi.tar.gz | tar xvzf -
