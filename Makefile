@@ -13,7 +13,7 @@ raspbian.zip:
 
 raspbian.img: raspbian.zip
 	unzip raspbian.zip
-	mv ????-??-??-wheezy-raspbian.img raspbian.img
+	mv ????-??-??-raspbian.img raspbian.img
 	touch raspbian.img
 
 pindestino.img: raspbian.img kernel-qemu
