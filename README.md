@@ -19,13 +19,38 @@ Download image file
 
 The SD card image is ~3 gigabytes.
 
-* [Torrent download](https://github.com/klandestino/pindestino/raw/master/releases/pindestino_version_1.img.torrent).
+### Last release (version 2):
+
+* [Torrent download](https://github.com/klandestino/pindestino/raw/master/releases/pindestino_version_2.img.torrent).
+
+### Previous releases:
+
+* [Pindestino version 1](https://github.com/klandestino/pindestino/raw/master/releases/pindestino_version_1.img.torrent)
+
+
+Changelog
+---------
+
+### [Pindestino version 2](https://github.com/klandestino/pindestino/raw/master/releases/pindestino_version_2.img.torrent)
+
+* Based on the Raspbian 2015-01-31 release.
+* Support for the HFS+ Mac OS X filesystem.
+* Custom bootscript will run after timezone, network and iceweasel extension setup.
+* Release file is compressed as .tar.gz
+
+### [Pindestino version 1](https://github.com/klandestino/pindestino/raw/master/releases/pindestino_version_1.img.torrent)
+
+* First public release
 
 
 Write image to SD card
 ----------------------
 
-Check any Raspberry Pi tutorial for your OS.
+First uncompress the downloaded .tar.gz file
+
+	# tar xzvf pindestino.img.tar.gz
+
+Then write the image to a SD card. Check any Raspberry Pi tutorial for your OS.
 
 In the Linux world, we do something like this: (Make sure /dev/mmcblk0 is the correct device!)
 
@@ -148,6 +173,7 @@ We hardcoded 720p into Pindestino. In the future, we would like the resolution t
 
 * GPLv3 for the buildscripts.
 * The R-Kiosk Iceweasel/Firefox extension has it's own license.
+
 
 TODO for future releases
 -------------------------
