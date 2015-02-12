@@ -137,6 +137,14 @@ Also note: Some modules require symlinks to work on your USB stick. The FAT file
 Q & A
 ------
 
+### Which Raspberries are supported?
+
+Pinedstino has been tested on:
+
+* Raspberry Pi Model B (the one with 2 USBs, 1 ethernet and 512 mb RAM).
+* Raspberry Pi Model B+ (the one with 4 USBs, 1 ethernet and 512 mb RAM).
+* Raspberry Pi 2 Model B (the one with 4 USBs, 1 ethernet, 1 gb RAM and 4 cores).
+
 ### Where is some debug info / boot messages?
 
 Press ctrl+alt+f2 for tty2, where that stuff is.
