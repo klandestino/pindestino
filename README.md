@@ -93,7 +93,7 @@ To enable Wifi and set network name and password:
 
 	wifi:
 		network: MYWIFI
-		passwork: secret
+		password: secret
 
 To mount your USB stick in read-write mode:
 
